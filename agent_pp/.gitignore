@@ -1,0 +1,16 @@
+.github/
+
+build/
+
+## General build artifacts
+*.o
+*.obj
+*.exe
+
+/include/system/
+
+/config.h
+/libagent.h
+/cmake_config.h
+/cmake_libagent.h
+/include/agent_pp/agent++.h

@@ -1,0 +1,14 @@
+.github/
+
+build/
+
+## General build artifacts
+*.o
+*.obj
+*.exe
+
+/include/system/
+
+/config.h
+/libsnmp.h
+/include/snmp_pp/config_snmp_pp.h
