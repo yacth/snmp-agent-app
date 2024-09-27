@@ -11,7 +11,7 @@ The `snmp-agent-app` includes:
 
 # Prerequisite
 
-- [Linux prerequisite](./instructions/README_LINUX)
+- [Linux prerequisite](./instructions/README_LINUX.md)
 
 ---
 
