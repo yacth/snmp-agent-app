@@ -1,23 +1,3 @@
-/*_############################################################################
-  _##
-  _##  AGENT++ 4.5 - agent.cpp
-  _##
-  _##  Copyright (C) 2000-2021  Frank Fock and Jochen Katz (agentpp.com)
-  _##
-  _##  Licensed under the Apache License, Version 2.0 (the "License");
-  _##  you may not use this file except in compliance with the License.
-  _##  You may obtain a copy of the License at
-  _##
-  _##      http://www.apache.org/licenses/LICENSE-2.0
-  _##
-  _##  Unless required by applicable law or agreed to in writing, software
-  _##  distributed under the License is distributed on an "AS IS" BASIS,
-  _##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  _##  See the License for the specific language governing permissions and
-  _##  limitations under the License.
-  _##
-  _##########################################################################*/
-
 #include <stdlib.h>
 #include <signal.h>
 #include <sstream>
@@ -101,30 +81,27 @@ void init(Mib &mib, const NS_SNMP OctetStr &engineID)
   // group:
   MibStaticTable *ssg = new MibStaticTable("1.3.6.1.4.1.57.6.1.2");
 
-  char uint32DataStr[4] = {0};
-  uint32_t uint32Data = 12345;
-  memcpy(uint32DataStr, &uint32Data, sizeof(uint32Data));
+  // Send uint32_t
+  ssg->add(MibStaticEntry("1.0", SnmpUInt32(12345)));
 
-  ssg->add(MibStaticEntry("1.0", OctetStr(uint32DataStr)));
+  // Send float32
+  float floatValue = 123.45f;
 
-  char floatDataStr[4] = {0};
-  float floatData = 123.45;
-  memcpy(floatDataStr, &floatData, sizeof(floatData));
+  OctetStr floatBinary(reinterpret_cast<const unsigned char *>(&floatValue), sizeof(floatValue));
+  ssg->add(MibStaticEntry("2.0", floatBinary));
 
-  ssg->add(MibStaticEntry("2.0", OctetStr(floatDataStr)));
-
-  // Create an array of 2048 floats and serialize them into an OctetStr
-  std::stringstream ss("");
-
+  // Create an array of 2048 floats
+  float floatData[2048];
   for (int i = 0; i < 2048; ++i)
   {
-    std::string oid = "3." + std::to_string(i + 1); // Creating OID for each float in the array
-    float floatData = static_cast<float>(i) + 0.1;
-
-    OctetStr octetStr(reinterpret_cast<const unsigned char *>(&floatData), sizeof(floatData));
-
-    ssg->add(MibStaticEntry(oid.c_str(), octetStr)); // Example values
+    floatData[i] = static_cast<float>(i) + 0.1f;
   }
+
+  // Serialize the array into an OctetStr
+  OctetStr serializedData(reinterpret_cast<const unsigned char *>(floatData), sizeof(floatData));
+
+  // Add the entire array as a single MibStaticEntry
+  ssg->add(MibStaticEntry("3.0", serializedData));
 
   mib.add(ssg);
 
