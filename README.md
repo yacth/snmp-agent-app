@@ -39,6 +39,7 @@ Open another terminal:
 2. To get the `FLOAT32` data run the following command `snmpget -v3 -l noAuthNoPriv -u unsecureUser 127.0.0.1:4700 1.3.6.1.4.1.57.6.1.2.2.0`
 3. To get the array of `FLOAT32` data run the following command `snmpget -v3 -l noAuthNoPriv -u unsecureUser 127.0.0.1:4700 1.3.6.1.4.1.57.6.1.2.3.0`
 
-Note that the ENDIANESS is inverted, for example if we have the following HEX string : `66 E6 F6 42`, depending on the system the ENDIANESS might need to be inverted to `42 F6 E6 66`. 
+Note that the ENDIANNESS is inverted, for example if we have the following HEX string : `66 E6 F6 42`, depending on the system the ENDIANNESS might need to be inverted to `42 F6 E6 66`. 
+
 We can retreive `123.45` with `42 F6 E6 66` on the following website https://gregstoll.com/~gregstoll/floattohex/
 
