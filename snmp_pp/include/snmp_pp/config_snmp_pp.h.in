@@ -38,7 +38,7 @@
 #define SNMP_PP_PATCHLEVEL @SNMP_PP_MICRO_VERSION@
 
 //! The maximum size of a message that can be sent or received.
-#define MAX_SNMP_PACKET 4096
+#define MAX_SNMP_PACKET 10000
 
 #ifndef DLLOPT
 #if defined (WIN32) && defined (SNMP_PP_DLL)
